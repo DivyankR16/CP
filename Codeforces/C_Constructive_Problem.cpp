@@ -40,9 +40,13 @@ forn(i,n){
 }
 if(startidx!=INT_MIN){
     if(startidx==endidx){
-        
+
     }
 }
+//Approach is simple but code is lengthy
+// I will search for a subsegment which start with firstmost mex+1 of array and end with endmost mex+1 of array 
+// And check if all elements in that segement greater than mex of array if they are then answer is yes otherwise no
+// But if mex+1 is only appered once then,
 }
 int main(){
 ll t;
