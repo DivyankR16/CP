@@ -11,12 +11,12 @@ set<ll>s;
 forn(i,n){
     s.insert(a[i]);
 }
-ll cnt=1;
+ll cnt=0;
 ll maxval;
 ll mexarr=INT_MIN;
 for(auto i:s){
     if(i!=cnt){
-      mexarr=i;
+      mexarr=cnt;
       break;
     }
     cnt++;
@@ -34,14 +34,43 @@ forn(i,n){
 }
 forn(i,n){
     if(a[n-i-1]==mexarr+1){
-        endidx=i;
+        endidx=n-i-1;
         break;
     }
 }
+// cout<<startidx<<" "<<endidx<<"\n";
 if(startidx!=INT_MIN){
     if(startidx==endidx){
-
+       cout<<"Yes"<<"\n";
     }
+    else{
+        map<ll,ll>map;
+        forn(i,n){
+            if(i<startidx && i>endidx){
+                map[a[i]]++;
+            }
+        }
+        for(ll i=startidx;i<=endidx;i++){
+            if(a[i]<mexarr && !map[a[i]]){
+                cout<<"No"<<"\n";
+                return;
+            }
+        }
+        cout<<"Yes"<<"\n";
+    }
+}
+else{
+map<ll,ll>map;
+forn(i,n){
+    map[a[i]]++;
+}
+forn(i,n){
+    if(a[i]>mexarr || map[a[i]]>1){
+        cout<<"Yes"<<"\n";
+        return;
+    }
+}
+cout<<"No"<<"\n";
 }
 //Approach is simple but code is lengthy
 // I will search for a subsegment which start with firstmost mex+1 of array and end with endmost mex+1 of array 
