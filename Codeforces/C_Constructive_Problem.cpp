@@ -46,7 +46,7 @@ if(startidx!=INT_MIN){
     else{
         map<ll,ll>map;
         forn(i,n){
-            if(i<startidx && i>endidx){
+            if(i<startidx || i>endidx){
                 map[a[i]]++;
             }
         }
