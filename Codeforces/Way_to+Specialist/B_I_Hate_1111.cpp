@@ -5,7 +5,15 @@ using namespace std;
 void solve(){
 ll x;
 cin>>x;
-if(x)
+bool ans=false;
+forn(i,11){
+    if((x-i*111)>=0 && (x-i*111)%11==0){
+        ans=true;
+        break;
+    }
+}
+if(ans)cout<<"YES"<<"\n";
+else cout<<"NO"<<"\n";
 }
 int main(){
 ll t;
