@@ -19,13 +19,12 @@ if(contrast==0){
     cout<<1<<"\n";
     return;
 }
-ll i=0;
-ll j=n-1; 
-while(i<j){
-if(abs(a[i]-a[j])==contrast){
-
+ll ans=unique(a,a+n)-a;
+forn(i,n-2){
+      if(a[i]<a[i+1] && a[i+1]<a[i+2])ans--;
+      if(a[i]>a[i+1] && a[i+1]>a[i+2])ans--;
 }
-}
+cout<<ans<<"\n";
 }
 int main(){
 ll t;
