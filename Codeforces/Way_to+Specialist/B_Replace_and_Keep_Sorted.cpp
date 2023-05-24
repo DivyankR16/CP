@@ -7,23 +7,24 @@ ll n,q,k;
 cin>>n>>q>>k;
 ll a[n];
 forn(i,n)cin>>a[i];
-ll dp[n];
-forn(i,n){
-    if(i && i<n-1){
-        ll lowerLimit=1;
-        ll upperLimit=a[i+1];
-        dp[i]=upperLimit-lowerLimit-1;
-        if(dp[i]<0)dp[i]=0;
+if(n==1){
+    forn(i,q){
+        ll x,y;
+        cin>>x>>y;
+        cout<<k-1<<"\n";
     }
-    else if(i==0){
-        ll upperLimit=a[i+1];
-        dp[i]=upperLimit-1;
-        if(dp[i]<0)dp[i]=0;
+    return;
+}
+ll dp[n];
+for(ll i=0;i<n;i++){
+    if(!i){
+        dp[i]=a[i+1]-a[i]-1;
+    }
+    else if(i==n-1){
+        dp[i]=a[i]-a[i-1]-1;
     }
     else{
-        ll lowerLimit=1;
-        dp[i]=k-lowerLimit-1;
-        if(dp[i]<0)dp[i]=0;
+        dp[i]=a[i+1]-a[i]-1+a[i]-a[i-1]-1;
     }
 }
 forn(i,n){
@@ -32,11 +33,17 @@ forn(i,n){
 forn(i,q){
     ll x,y;
     cin>>x>>y;
-    if(x!=1){
-        cout<<dp[y-1]-dp[x-2]<<"\n";
+    if(x==1 && y==n){
+        cout<<a[x-1]-1+dp[y-1]+k-a[y-1]<<"\n";
+    }
+    else if(x==1){
+        cout<<a[x-1]-1+dp[y-1]+k-a[y]+1<<"\n";
+    }
+    else if(y==n){
+        cout<<a[x-2]+dp[y-1]-dp[x-2]+k-a[y-1]<<"\n";
     }
     else{
-        cout<<dp[y-1]<<"\n";
+        cout<<a[x-2]+dp[y-1]-dp[x-2]+k-a[y]+1<<"\n";
     }
 }
 }
