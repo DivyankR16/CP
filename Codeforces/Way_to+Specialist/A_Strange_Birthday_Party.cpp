@@ -13,28 +13,17 @@ unordered_map<ll,ll>mp;
 forn(i,n){
     mp[k[i]]++;
 }
-vector<pair<ll,ll>>vp;
-forn(i,m){
-    vp.push_back({c[i],i+1});
-}
-sort(vp.begin(),vp.end());
-bool isAvailablePresent[m];
-forn(i,m)isAvailablePresent[i]=1;
 ll ans=0;
+ll majorIdx=0;
 for(ll i=m-1;i>=0;i--){
-    ll val=mp[vp[i].second];
+    ll val=mp[i+1];
     while(val){
-        bool check=false;
-        for(ll j=0;j<m;j++){
-            if(isAvailablePresent[j] && vp[j].second<vp[i].second){
-                ans+=vp[j].first;
-                isAvailablePresent[j]=0;
-                check=true;
-                break;
-            }
+        if(c[majorIdx]<c[i]){
+            ans+=c[majorIdx];
+            majorIdx++;
         }
-        if(!check){
-            ans+=vp[i].first;
+        else{
+            ans+=c[i];
         }
         val--;
     }
