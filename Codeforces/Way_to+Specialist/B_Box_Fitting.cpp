@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include<cmath>
 using namespace std;
 #define ll long long
 #define forn(i,n) for(ll i=0;i<n;i++)
@@ -7,27 +8,40 @@ ll n,W;
 cin>>n>>W;
 ll w[n];
 forn(i,n)cin>>w[i];
-sort(w,w+n);
-ll i=0;
-ll j=n-1;
-
-ll height=0;
-while(i<=j){
-    ll val;
-    if(i!=j){
-    val=w[i];}
-    else{
-        val=0;
-    }
-  while(i<=j && w[j]+val<=W){
-     i++;
-     if(i<=j){
-     val+=w[i];}
+ll disRect[20];
+memset(disRect,0,sizeof(disRect));
+forn(i,n){
+  ll power=0;
+  ll val=w[i];
+  while(val>1){
+    val/=2;
+    power++;
   }
-  height++;
-  j--;
+  disRect[power]++;
 }
-cout<<height<<"\n";
+ll ans=1;
+ll widthLeft=W;
+for(ll i=0;i<n;i++){
+  ll larSatisfying=-1;
+  for(ll j=19;j>=0;j--){
+    if(disRect[j] && (1<<j)<=widthLeft){
+      larSatisfying=j;
+      break;
+    }}
+    if(larSatisfying==-1){
+       ans++;
+       widthLeft=W;
+       for(ll j=19;j>=0;j--){
+    if(disRect[j] && (1<<j)<=widthLeft){
+      larSatisfying=j;
+      break;
+    }
+    }
+  }
+  widthLeft-=(1<<larSatisfying);
+  disRect[larSatisfying]--;
+}
+cout<<ans<<"\n";
 }
 int main(){
 ll t;
