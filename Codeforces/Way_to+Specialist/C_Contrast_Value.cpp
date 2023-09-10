@@ -5,21 +5,22 @@ using namespace std;
 void solve(){
 ll n;
 cin>>n;
-ll a[n];
+vector<ll>a(n);
 forn(i,n)cin>>a[i];
-if(n==1){
-    cout<<1<<"\n";
-    return;
-}
-ll contrast=0;
-forn(i,n-1){
-    contrast+=abs(a[i]-a[i+1]);
-}
-if(contrast==0){
-    cout<<1<<"\n";
-    return;
-}
-ll ans=unique(a,a+n)-a;
+// if(n==1){
+//     cout<<1<<"\n";
+//     return;
+// }
+// ll contrast=0;
+// forn(i,n-1){
+//     contrast+=abs(a[i]-a[i+1]);
+// }
+// if(contrast==0){
+//     cout<<1<<"\n";
+//     return;
+// }
+n=unique(a.begin(),a.end())-a.begin();
+ll ans=n;
 forn(i,n-2){
       if(a[i]<a[i+1] && a[i+1]<a[i+2])ans--;
       if(a[i]>a[i+1] && a[i+1]>a[i+2])ans--;
