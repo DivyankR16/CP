@@ -1,5 +1,6 @@
 #Solving competitve programming and pure DSA questions!!!
 Segment Tree Implementation(Simple sum Range Query and modifying Question)
+<pre>
 //----------------------------------------------------------------------------------COD--GOES--HERE---------------------------------//-----------------------//
 #include<bits/stdc++.h>
 using namespace std;
@@ -71,3 +72,4 @@ solve();
 return 0;
 }
 //-----------------------------------------------------------------------END--------------------------------------------------------//
+       </pre>
