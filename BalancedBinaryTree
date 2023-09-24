@@ -1,0 +1,231 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<limits.h>
+#include<stdbool.h>
+typedef struct node {
+	int d; 
+	int c;
+	struct node* p; 
+	struct node* r; 
+	struct node* l; 
+}B2;
+B2 *root=NULL;
+B2 *BinaryST(B2* move,B2* p)
+{   if(move==NULL){return p;}
+	if (p->d<move->d)
+	{move->l = BinaryST(move->l, p);move->l->p=move;}
+	else if (p->d>move->d)
+	{move->r = BinaryST(move->r, p);move->r->p=move;}
+	return move;
+}
+void leftrotate(B2 *p){
+    B2 *right=p->r;
+    p->r=right->l;
+    if(p->r){
+        p->r->p=p;
+    }
+    right->p=p->p;
+    if(p->p==NULL){
+        root=right;
+    }
+    else if(p=p->p->l){
+        p->p->l=right;
+    }
+    else{p->p->r=right;}
+    right->l=p;
+    p->p=right;
+}
+void rightrotate(B2 *p)
+{  B2 *left=p->l;
+    p->l=left->r;
+    if(p->l){
+    	p->l->p=p;}
+    left->p=p->p;
+    if(p->p==NULL){
+    	root=left;}
+    else if(p==p->p->l)
+    	{p->p->l = left;}
+    else{p->p->r=left;}
+    left->r=p;
+    p->p=left;
+}
+void correct(B2 *root,B2 *c){
+   B2 *p=NULL;
+   B2 *gp=NULL;
+   while((c!=root) && (c->c!=0) && (c->p->c==1)){
+      p=c->p;
+      gp=c->p->p;
+   if(p==gp->l){
+    B2 *u=gp->r;
+    if(u!=NULL && u->c==1){
+        gp->c=1;
+        p->c=0;
+        u->c=0;
+        c=gp;
+    }
+    else{
+        if(c==p->r){
+            leftrotate(p);
+            c=p;
+            p=c->p;
+        }
+        rightrotate(gp);
+        int val=p->c;
+        p->c=gp->c;
+        gp->c=val;
+        c=p;
+    }
+   }
+   else{
+    B2 *u=gp->l;
+    if(u!=NULL && u->c==1){
+        gp->c=1;
+        p->c=0;
+        u->c=0;
+        c=gp;
+    }
+    else{
+        if(c==p->l){
+            rightrotate(p);
+            c=p;
+            p=c->p;
+        }
+        leftrotate(gp);
+        int val=p->c;
+        p->c=gp->c;
+        gp->c=val;
+        c=p;
+    }
+   }
+}
+root->c=0;
+}
+void inorder(B2 *root){
+    if(root){
+        inorder(root->l);
+        printf("%d ",root->d);
+        inorder(root->r);
+    }
+}
+typedef struct Tnode{
+    int data;
+    int hgt;
+    struct Tnode *left;
+    struct Tnode *right;
+}B;
+B *createTnode(int data){
+    B *newnode=(B*)malloc(sizeof(B));
+    newnode->data=data;
+    newnode->hgt=0;
+    newnode->left=newnode->right=NULL;
+    return newnode;
+}
+int height(B *node){
+    if(node!=NULL){
+    int HL=height(node->left);
+    int HR=height(node->right);
+    int val=(HL>HR)?HL:HR;
+    return 1+val;}
+    else{return 0;}
+}
+int bf(B *node){
+    if(node==NULL){
+        return 0;
+    }
+    return height(node->left)-height(node->right);}
+B *LLImbalanceRotation(B *b){   
+    B *a =b->left;
+    B *T =a->right;
+    a->right=b;
+    b->left=T;
+    b->hgt=height(b);
+    a->hgt=height(a);
+    return a;
+}
+B *RRImbalanceRotation(B *a){   
+    B *b =a->right;
+    B *T =b->left;
+    b->left =a;
+    a->right =T;
+    a->hgt=height(a);
+    b->hgt=height(b);
+    return b;
+}
+B *leftrightRotate(B *b){
+    b->left=RRImbalanceRotation(b->left);
+    return LLImbalanceRotation(b);
+}
+B *rightleftRotate(B *a){
+    a->right=LLImbalanceRotation(a->right);
+    return RRImbalanceRotation(a);
+}
+B *insert(B *node,int k){
+    if(node == NULL)
+       { return(createTnode(k));}
+    if(k<node->data){
+        node->left=insert(node->left,k);}
+    else if (k>node->data){
+        node->right=insert(node->right,k);}
+    else{return node;}
+    node->hgt=height(node);
+    int BF=bf(node);
+    if(BF>1 && k<node->left->data){
+        printf("\nLL performed on node datas: %d %d %d",node->data,node->left->data,node->left->left->data);
+     return LLImbalanceRotation(node);}
+    if(BF<-1 && k>node->right->data){
+        printf("\nRR performed on node datas: %d %d %d",node->data,node->right->data,node->right->right->data);
+     return RRImbalanceRotation(node);}
+    if(BF>1 && k>node->left->data)
+    {printf("\nLR performed on node datas: %d %d %d",node->data,node->left->data,node->left->right->data);
+    return leftrightRotate(node);}
+    if(BF<-1 && k<node->right->data)
+    {printf("\nRL performed on node datas: %d %d %d",node->data,node->right->data,node->right->left->data);
+    return rightleftRotate(node);}
+    return node;}
+B *miniNode(B *node){
+    B *p=node;
+	while (p->left!=NULL)
+		{p=p->left;}
+	return p;
+}
+B *deleteNode(B *root,int k){
+  if(root==NULL){return root;}
+	if (k<root->data )
+		root->left = deleteNode(root->left,k);
+	else if(k>root->data){
+		root->right = deleteNode(root->right,k);}
+	else
+	{ if((root->left==NULL) || (root->right==NULL))
+		{B *p;
+         if(root->left){
+            p=root->left;
+         }
+         else{p=root->right;}
+			if (p==NULL){
+            p=root;
+            root=NULL;}
+			else{
+			*root=*p; 
+			free(p);}
+		}
+		else{
+        B *p= miniNode(root->right);
+        root->data=p->data;
+        root->right=deleteNode(root->right,p->data);}
+	}
+	if(root==NULL){
+	return root;}
+	root->hgt=height(root);
+	int BF=bf(root);
+	if (BF>1 && bf(root->left)>=0){
+		return LLImbalanceRotation(root);}
+	if (BF>1 && bf(root->left)<0){
+	root->left=RRImbalanceRotation(root->left);
+    return LLImbalanceRotation(root);}
+	if (BF<-1 && bf(root->right)<=0){
+		return RRImbalanceRotation(root);}
+	if (BF<-1 && bf(root->right)>0)
+	{root->right=LLImbalanceRotation(root->right);
+    return RRImbalanceRotation(root);}
+	return root;}
