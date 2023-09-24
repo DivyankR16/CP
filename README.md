@@ -1,2 +1,2 @@
-# CPSolving competitve programming and pure DSA questions!!!
+#Solving competitve programming and pure DSA questions!!!
 
