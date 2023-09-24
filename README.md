@@ -1,5 +1,6 @@
-#Solving competitve programming and pure DSA questions!!!
-Segment Tree Implementation(Simple sum Range Query and modifying Question)
+#Solving competitve programming and pure DSA questions!!!<br>
+Segment Tree Implementation(Simple sum Range Query and modifying Question)<br>
+There is some mistake in the implementation but i am unable to find it.
 <pre>
 //----------------------------------------------------------------------------------COD--GOES--HERE---------------------------------//-----------------------//
 #include<bits/stdc++.h>
