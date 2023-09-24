@@ -1,6 +1,6 @@
 #Solving competitve programming and pure DSA questions!!!
 Segment Tree Implementation(Simple sum Range Query and modifying Question)
-//----------------------------------------------------------------------------------COD--GOES--HERE--------------------------------------------------------//
+//----------------------------------------------------------------------------------COD--GOES--HERE---------------------------------//-----------------------//
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
