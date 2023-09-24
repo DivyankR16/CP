@@ -2,7 +2,7 @@
 Segment Tree Implementation(Simple sum Range Query and modifying Question)<br>
 There is some mistake in the implementation but i am unable to find it.
 <pre>
-//----------------------------------------------------------------------------------COD--GOES--HERE---------------------------------//-----------------------//
+//----------------------------------------------------------------------------------CODE--GOES--HERE---------------------------------//-----------------------//
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
