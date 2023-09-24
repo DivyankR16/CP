@@ -16,7 +16,7 @@ ll gcdExtended(ll a, ll b, ll *x, ll *y)
     return gcd;
 }
 ll modInverse(int b, int m)
-{
+{//
     ll x, y;
     ll g = gcdExtended(b, m, &x, &y);
     if (g != 1)
