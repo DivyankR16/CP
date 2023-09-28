@@ -22,7 +22,7 @@ ll query(ll node,ll segleft,ll segright,ll qleft, ll qright){
         return tree[node];
     }
     if(qleft>segright || qright<segleft){
-        return 1073741823;
+        return 1083741823;
     }
     ll lastidx=(segleft+segright)/2;
     return query(2*node,segleft,lastidx,qleft,qright) & query(2*node+1,lastidx+1,segright,qleft,qright);
