@@ -13,14 +13,15 @@ ll build(vector<ll>&a){
     forn(i,n){
         tree[n+i]=a[i];
     }
-    // for(ll i=n-1;i>=1;i--){
-    //     tree[i]=tree[2*i]+tree[2*i+1];
-    // }
+    for(ll i=n-1;i>=1;i--){
+        tree[i]=tree[2*i]+tree[2*i+1];
+    }
     return n;
 }
 void update(ll node,ll segleft,ll segright,ll qleft,ll qright,ll u){
     if(segleft==segright){
       tree[node]+=u;
+      return;
     }
     if(qleft>segright || qright<segleft){
         return;
@@ -28,6 +29,7 @@ void update(ll node,ll segleft,ll segright,ll qleft,ll qright,ll u){
     ll lastidx=segleft+(segright-segleft)/2;
     update(2*node,segleft,lastidx,qleft,qright,u);
     update(2*node+1,lastidx+1,segright,qleft,qright,u);
+    tree[node]=tree[2*node]+tree[2*node+1];
 }
 void solve(){
 ll n,q;
