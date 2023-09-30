@@ -3,22 +3,14 @@ using namespace std;
 #define ll long long
 #define forn(i,n) for(ll i=0;i<n;i++)
 void solve(){
-ll n;
-cin>>n;
-ll a[n];
-forn(i,n)cin>>a[i];
-if(n==1){
-    cout<<0<<"\n";
-    return;
-}
-ll i=0;
-ll j=n-1;
-sort(a,a+n);
-ll ans=0;
-while(i<j){
-    ans+=a[j]-a[i];
-    i++;
-    j--;
+ll a,b,n;
+cin>>a>>b>>n;
+ll x[n];
+forn(i,n)cin>>x[i];
+sort(x,x+n);
+ll ans=b;
+forn(i,n){
+    ans+=min(x[i],a-1);
 }
 cout<<ans<<"\n";
 }
