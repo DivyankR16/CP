@@ -5,25 +5,31 @@ using namespace std;
 void solve(){
     ll n, q;
     cin >> n >> q;
-char forest[n][n];
+   char forest[n][n];
     forn(i,n){
         forn(j,n){
             cin >> forest[i][j];
         }
     }
-ll preRowSum[n][n];
+ll preMatSum[n][n];
 forn(i,n){
     forn(j,n){
-        preRowSum[i][j] = 0;
+        preMatSum[i][j] = 0;
     }
 }
 forn(i,n){
     forn(j,n){
-        if(!j){
-            preRowSum[i][j] = (forest[i][j]=='*'?1:0);
+        if(!i && !j){
+            preMatSum[i][j]+= (forest[i][j]=='*'?1:0);
+        }
+        else if(!i){
+            preMatSum[i][j] += preMatSum[i][j - 1] + (forest[i][j]=='*'?1:0);
+        }
+        else if(!j){
+            preMatSum[i][j] += preMatSum[i - 1][j] + (forest[i][j]=='*'?1:0);
         }
         else{
-            preRowSum[i][j] += (forest[i][j]=='*'?1:0) + preRowSum[i][j-1];
+            preMatSum[i][j] += -preMatSum[i - 1][j - 1] + preMatSum[i - 1][j] + preMatSum[i][j - 1] + (forest[i][j] == '*' ? 1 : 0);
         }
     }
 }
@@ -42,11 +48,18 @@ forn(i,q){
     y1--;
     x2--;
     y2--;
-    ll ans = 0;
-    for (ll j = x1; j <= x2;j++){
-        ans += (y1 ? preRowSum[j][y2] - preRowSum[j][y1-1] : preRowSum[j][y2]);
+    if(!x1 && !y1){
+        cout << preMatSum[x2][y2]<<"\n";
     }
-    cout << ans << "\n";
+    else if(!x1){
+        cout << preMatSum[x2][y2] - preMatSum[x2][y1 - 1]<<"\n";
+    }
+    else if(!y1){
+        cout << preMatSum[x2][y2] - preMatSum[x1 - 1][y2]<<"\n";
+    }
+    else{
+        cout << preMatSum[x2][y2] - preMatSum[x1 - 1][y2] - preMatSum[x2][y1 - 1] + preMatSum[x1 - 1][y1 - 1]<<"\n";
+    }
 }
 }
 int main(){
