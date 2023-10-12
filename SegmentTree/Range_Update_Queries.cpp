@@ -33,11 +33,12 @@ void update(ll node,ll segleft,ll segright,ll qleft, ll qright,ll value){
         return;
     }
      if(segleft>=qleft && segright<=qright){
-        tree[node]=(segright-segleft+1)*value;
-        if(segleft!=segright){
-            lazy[2*node]+=value;
-            lazy[2*node+1]+=value;
-     }
+        tree[node]+=(segright-segleft+1)*value;
+            if(segleft!=segright){
+                lazy[2*node]+=value;
+                lazy[2*node+1]+=value;
+         }
+        return;
      }
      ll lastidx=segleft+(segright-segleft)/2;
      update(2*node,segleft,lastidx,qleft,qright,value);

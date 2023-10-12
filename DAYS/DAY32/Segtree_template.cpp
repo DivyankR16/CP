@@ -30,6 +30,9 @@ void update(ll node, ll segleft, ll segright,ll qleft,ll qright, ll val){
     update(2 * node+1, lastidx, segright,qleft, qright, val);
     tree[node] = tree[2 * node] + tree[2 * node + 1];
 }
+ll query(ll node,ll segleft,ll segright,ll qleft,ll qright){
+    if(qleft<)
+}
 void solve()
 {
 }
