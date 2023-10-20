@@ -2,32 +2,42 @@
 using namespace std;
 #define ll long long
 #define forn(i,n) for(ll i=0;i<n;i++)
-ll ans(string s){
-    if(s.size()==0){
+vector<ll> memo;
+ll ans(string &s,ll i){
+    if(i==s.size()){
         return 1;
     }
-    ll sum = 0;
-    for (ll i = 0; i <= 1;i++){
-        string temp = s.substr(0, i + 1);
-        if(stoll(temp)<=26){
-            string newstr = s.substr(i + 1);
-            sum+=ans(newstr);
-        }
-        if(s.size()<=1)
-           break;
+    if(memo[i]!=-1){
+        return memo[i];
     }
-    return sum;
+    ll sum = 0;
+    if(s[i]>='1' && s[i]<='9'){
+        sum += ans(s, i + 1);
+    }
+    if(i+1<s.size() && s[i]=='1'){
+        sum += ans(s, i + 2);
+    }
+    if(i+1<s.size() && s[i]=='2' && s[i]<='6'){
+        sum += ans(s, i + 2);
+    }
+    return memo[i]=sum;
 }
-void solve(){
+ll solve(){
     string s;
     cin >> s;
-    cout << "Total number of answers are:-> " << ans(s)<< "\n";
+    if(s=="0")return 0;
+    else{
+        memo.clear();
+        memo.resize(s.size(), -1);
+        cout << ans(s, 0) << "\n";
+        return 1;
+    }
 }
 int main(){
-ll t;
-cin>>t;
-while(t--){
-solve();
+    while(true){
+if(!solve()){
+           break;
 }
+    }
 return 0;
 }
