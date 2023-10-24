@@ -2,31 +2,37 @@
 using namespace std;
 #define ll long long
 #define forn(i,n) for(ll i=0;i<n;i++)
-ll recur(ll n,ll a[],ll idx,ll prev){
-    if(idx==n){
-        return 0;
-    }
-    ll ans = 0;
-    ll fans = 0;
-    if (a[idx] == prev + 1)
-    {
-       ans+=1+ recur(n, a, idx + 1, a[idx]);
-       fans = max(fans, ans);
-   }
-   else{
-       ans += recur(n, a, idx + 1, a[idx]);
-       fans = max(fans, ans);
-   }
-   ans += recur(n, a, idx + 1, prev);
-   fans = max(fans, ans);
-   return fans;
-}
 void solve(){
     ll n;
     cin >> n;
     ll a[n];
     forn(i, n) cin >> a[i];
-    cout<<recur(n,a,0,-2)<<"\n";
+    map<ll, ll> dp;
+    forn(i,n){
+        dp[a[i]] = 0;
+    }
+    ll lst=0;
+    ll val = 0;
+    forn(i,n){
+        dp[a[i]] = 1 + dp[a[i] - 1];
+        if(val<dp[a[i]]){
+            val = dp[a[i]];
+            lst = a[i];
+        }
+    }
+    vector<ll> ans;
+    for (ll i = n - 1; i >= 0;i--){
+        if(lst==a[i]){
+            ans.push_back(i);
+            lst--;
+        }
+    }
+    reverse(ans.begin(), ans.end());
+    cout << ans.size() << '\n';
+    for(auto v:ans){
+        cout << v+1 << " ";
+    }
+    cout << "\n";
 }
 int main(){
 solve();
