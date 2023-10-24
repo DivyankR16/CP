@@ -91,6 +91,7 @@ void solve(){
     cin >> n;
     ll a[n];
     forn(i, n) cin >> a[i];
+    divisors[0] = 1;
     // memo.clear();
     // memo.resize(n, -1);
     // cout<<recur(a, 0,1, n)<<"\n";
