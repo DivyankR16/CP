@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long 
+#define ll long long
 class Solution
 {
 public:
     vector<vector<ll>> memo;
-    vector<ll > a;
-    ll  sum;
+    vector<ll> a;
+    ll sum;
     bool recur(ll index, ll sum)
     {
         if (index == -1)
@@ -18,6 +18,10 @@ public:
         bool ans = false;
         if (sum - a[index] >= 0)
         {
+            ans |= recur(index, sum - a[index]);
+        }
+        if (sum - a[index] >= 0)
+        {
             ans |= recur(index - 1, sum - a[index]);
         }
         ans |= recur(index - 1, sum);
@@ -27,20 +31,20 @@ public:
     {
         this->a = arr;
         this->sum = sum;
-        this->memo.resize(a.size(), vector<ll >(sum + 1, -1));
+        this->memo.resize(a.size(), vector<ll>(sum + 1, -1));
         return recur(a.size() - 1, sum);
     }
 };
-ll  main()
+int main()
 {
-    ll  t;
+    ll t;
     cin >> t;
     while (t--)
     {
-        ll  N, sum;
+        ll N, sum;
         cin >> N;
         vector<ll> arr(N);
-        for (ll  i = 0; i < N; i++)
+        for (ll i = 0; i < N; i++)
         {
             cin >> arr[i];
         }
