@@ -20,10 +20,6 @@ public:
         {
             ans |= recur(index, sum - a[index]);
         }
-        if (sum - a[index] >= 0)
-        {
-            ans |= recur(index - 1, sum - a[index]);
-        }
         ans |= recur(index - 1, sum);
         return memo[index][sum] = ans;
     }
