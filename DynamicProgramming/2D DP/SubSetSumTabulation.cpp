@@ -4,6 +4,7 @@ using namespace std;
 class Solution
 {
 public:
+   
     bool isSubsetSum(vector<ll> arr, ll sum)
     {
         ll n = arr.size();

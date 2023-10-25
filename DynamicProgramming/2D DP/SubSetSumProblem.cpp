@@ -27,11 +27,24 @@ public:
     {
         this->a = arr;
         this->sum = sum;
-        this->memo.resize(a.size(), vector<ll >(sum + 1, -1));
+        this->memo.resize(a.size(), vector<ll>(sum + 1, -1));
         return recur(a.size() - 1, sum);
     }
+    void printSubset(ll index,ll sum){
+        if(index==-1){
+            return;
+        }
+        if(recur(index-1,sum-a[index])){
+            cout << a[index] << " ";
+            printSubset(index - 1, sum - a[index]);
+        }
+        else if(recur(index-1,sum)){
+            printSubset(index - 1, sum);
+        }
+        return;
+    }
 };
-ll  main()
+int  main()
 {
     ll  t;
     cin >> t;
@@ -48,6 +61,8 @@ ll  main()
 
         Solution ob;
         cout << ob.isSubsetSum(arr, sum) << endl;
+        ob.printSubset(N-1, sum);
+        cout << "\n";
     }
     return 0;
 }
