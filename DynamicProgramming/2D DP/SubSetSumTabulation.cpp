@@ -7,22 +7,20 @@ public:
     bool isSubsetSum(vector<ll> arr, ll sum)
     {
         ll n = arr.size();
-        bool dp[2][sum + 1];
+        bool dp[sum + 1];
         for (ll i = 0; i <= sum;i++){
-            dp[0][i] = 0;
+            dp[i] = 0;
         }
-        for (ll i = 0; i <2;i++){
-            dp[i][0] = 1;
-        }
+        dp[0] = 1;
         for (ll i = 1; i <= n;i++){
-            for (ll j = 1; j <= sum;j++){
-                dp[i%2][j] = dp[(i - 1)%2][j];
+            for (ll j = sum; j >= 1;j--){
+                dp[j] = dp[j];
                 if(j-arr[i-1]>=0){
-                    dp[i%2][j] |= dp[(i - 1)%2][j - arr[i - 1]];
+                    dp[j] |= dp[j - arr[i - 1]];
                 }
             }
         }
-        return dp[n%2][sum];
+        return dp[sum];
     }
 };
 int main()
