@@ -7,10 +7,8 @@ void solve(){
     cin >> n;
     ll a[n];
     forn(i, n) cin >> a[i];
-    ll k;
-    cin >> k;
     
-    }
+}
 int main(){
 ll t;
 cin>>t;
