@@ -17,6 +17,7 @@ ll costExculdingELE(vector<pair<ll,ll>>&segments,ll ele,ll n){
         ans = max(ans, presum[i]);
     }
     return ans;
+    //check
 }
 void solve(){
     ll n, m;
