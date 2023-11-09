@@ -42,7 +42,11 @@ void solve(){
             // cout << mp[{num[i][j] - (num[i][sz - 1] - num[i][j]), sz % 2}] << "\n";
             if (mp.find({num[i][j] - (num[i][sz - 1] - num[i][j]), sz % 2})!=mp.end()){
                 // cout <<"for i-> "<< i<<" -> "<<num[i][j] - (num[i][sz - 1] - num[i][j]) <<" sum wale-> "<< mp[{num[i][j] - (num[i][sz - 1] - num[i][j]), sz % 2}] <<" 2-wale "<< "\n";
-                ans += 2*mp[{num[i][j] - (num[i][sz - 1] - num[i][j]), sz % 2}];
+                ans += mp[{num[i][j] - (num[i][sz - 1] - num[i][j]), sz % 2}];
+            }
+            if(mp.find({num[i][sz-1]-2*(num[i][j]),sz%2})!=mp.end()){
+                // cout << "for i-> " << i << " -> " << num[i][j + 1] - num[i][j] << " sum wale-> " << mp[{num[i][j + 1] - (num[i][j]), sz % 2}] << "\n";
+                ans += mp[{num[i][sz - 1] - 2 * (num[i][j]), sz % 2}];
             }
         }
         if (mp.find({num[i][sz-1], sz % 2}) != mp.end())
