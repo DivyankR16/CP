@@ -10,21 +10,16 @@ void solve(){
     ll ans = 0;
     ll nextnum = a[n - 1];
     for (ll i = n - 2; i >= 0;i--){
-        ll num = a[i];
-        if(num>nextnum){
-                ll val = max((num / nextnum) - 1, 0ll);
-                ans += val;
-                num -= val * nextnum;
-        }
-        if(num>nextnum){
-                nextnum = num / 2;
-                ans++;
+        if(a[i]<=nextnum){
+            nextnum = a[i];
         }
         else{
-            nextnum = num;
+            ll val = (a[i]+nextnum-1)/nextnum;
+            ans += val - 1;
+            nextnum = a[i] / val;
         }
     }
-    cout << ans << "\n";
+        cout << ans << "\n";
 }
 int main(){
 ll t;
