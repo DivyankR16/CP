@@ -3,58 +3,31 @@ using namespace std;
 #define ll long long
 #define forn(i,n) for(ll i=0;i<n;i++)
 void solve(){
-    ll n;
-    cin >> n;
-    vector<pair<ll, ll>> segments;
-    set<ll> s;
-    forn(i, n)
-    {
-        ll l, r;
-        cin >> l >> r;
-        segments.push_back({l, r});
-        s.insert(l);
-        s.insert(r);
-    }
-    map<ll, ll> mp;
-    ll pt = 1;
-    for (auto i : s)
-    {
-        mp[i] = pt++;
-    }
-    vector<pair<ll, ll>> newsegments;
-    for (ll i = 0; i < n; i++)
-    {
-        // newsegments[i].first = mp[segments[i].first];
-        // newsegments[i].second = mp[segments[i].second];
-        newsegments.push_back({mp[segments[i].first], mp[segments[i].second]});
-    }
-    vector<ll> presum(pt+1, 0);
-    sort(newsegments.begin(),newsegments.end());
-    for (auto i : newsegments)
-    {
-        presum[i.first]++;
-        presum[i.second + 1]--;
-    }
-    // ll ans = 0;
-    for (ll i = 1; i < pt+1; i++)
-    {
-        presum[i] += presum[i - 1];
-        // ans = max(ans, presum[i]);
-    }
-    ll ans = 0;
-    // for (ll i = 1; i <= pt;i++){
-    //     cout << presum[i] << " ";
-    // }
-    // cout << "\n";
-    // sort(segments.begin(), segments.end());
-    for (auto i : segments)
-    {
-        ans += presum[mp[i.second]] - 1;
+   ll n;
+   cin>>n;
+   vector<pair<ll, ll>> segments;
+   vector<ll> s;
+   forn(i,n){
+       ll l, r;
+       cin >> l >> r;
+       segments.push_back({l, r});
+       s.push_back(r);
+   }
+   sort(segments.begin(), segments.end());
+   sort(s.begin(), s.end());
+   ll ans = 0;
+   for (ll i = 0; i < n;i++){
+       s.erase(segments[i].second);
+       auto it = lower_bound(s.begin(), s.end(), segments[i].second)- s.begin();
+       if (lower_bound(s.begin(), s.end(), segments[i].second)!=s.end()){
+           ll dis=(distance(s.begin(),lower_bound(s.begin(), s.end(), segments[i].second)));
+           ans += dis;
+              }
+        else{
+            ans += s.size();
         }
+   }
     cout << ans << "\n";
-    // for(auto i:newsegments){
-    //     cout << i.first << " " << i.second << "\n";
-    // }
 }
 int main(){
 ll t;
