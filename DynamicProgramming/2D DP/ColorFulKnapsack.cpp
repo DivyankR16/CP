@@ -28,13 +28,9 @@ ll colorfulKnapsack(ll w[], ll c[], ll n, ll m, ll x)
         for (ll j = 0; j <= x; j++)
         {
             if (dp[i][j])
-            {
-                for (ll k = 0; k < v[i + 1].size(); k++)
-                {
-                    if (j + v[i + 1][k] <= x)
-                    {
-                        dp[i + 1][j + v[i + 1][k]] = 1;
-                    }
+            {for (ll k = 0; k < v[i + 1].size(); k++)
+                {if (j + v[i + 1][k] <= x)
+                    {dp[i + 1][j + v[i + 1][k]] = 1;}
                 }
             }
         }

@@ -16,10 +16,10 @@ void solve(){
     for (ll i = 1; i<n;i++){
         dp[i][0] = 1e18+100;
         dp[i][1] = 1e18+100;
-        dp[i][2] = 1e18+100;
-        for (ll j = 0; j < 3;j++){
+        dp[i][2] = 1e18+100;                                                                     
+        for (ll j = 0; j < 3;j++){                                                
             for (ll k = 0; k < 3;k++){
-                if(a[i-1]+j!=a[i]+k){
+                if(a[i-1]+j!=a[i]+k){                                                    
                     dp[i][k] = min(dp[i][k], dp[i - 1][j] + k * b[i]);
                 }
             }
