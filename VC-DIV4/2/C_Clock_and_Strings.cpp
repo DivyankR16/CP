@@ -8,9 +8,17 @@ void solve(){
     ll temp = max(a, b);
     a = min(a, b);
     b = temp;
-    if()
-    if(c>a && c<b && d<a && d>b){
-       
+    ll cnt = 0;
+    for (ll i = a; i <= b;i++){
+        if(i==c || i==d){
+            cnt++;
+        }
+    }
+    if(cnt==1){
+        cout << "YES" << "\n";
+    }
+    else{
+        cout << "NO" << "\n";
     }
 }
 int main(){
