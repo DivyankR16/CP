@@ -9,32 +9,27 @@ void solve(){
     forn(i, n) cin >> a[i];
     string s;
     cin >> s;
-    ll il = -1;
-    ll ir = -1;
-    for (ll i = 0; i < n;i++){
-        if(s[i]=='L'){
-            il = i;
-            break;
-        }
+    ll i = 1;
+    ll j = n;
+    ll ans = 0;
+    vector<ll> pref(n + 1, 0);
+    for (int i = 1; i <= n;i++){
+        pref[i] += pref[i - 1] + a[i - 1];
     }
-    for (ll i = n - 1; i >= 0;i--){
-        if(s[i]=='R'){
-            if(i>il){
-                ir = i;
-                break;
+        while (i < j)
+        {
+            if (s[i-1] != 'L')
+                i++;
+            if (s[j-1] != 'R')
+                j--;
+            if (s[i-1] == 'L' && s[j-1] == 'R')
+            {
+                ans += pref[j] - pref[i - 1];
+                i++;
+                j--;
             }
         }
-    }
-    if(il!=-1 && ir!=-1){
-        ll ans = 0;
-        for (ll i = il; i <= ir;i++){
-            ans += a[i];
-        }
         cout << ans << "\n";
-    }
-    else{
-        cout << 0 << "\n";
-    }
 }
 int main(){
 ios_base:: sync_with_stdio(false);
