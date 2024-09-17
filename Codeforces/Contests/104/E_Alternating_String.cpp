@@ -26,10 +26,56 @@ void solve(){
         vector<vector<ll>> ebcnt(n, vector<ll>(26, 0));
         vector<vector<ll>> eacnt(n, vector<ll>(26, 0));
         vector<vector<ll>> obcnt(n, vector<ll>(26, 0));
-        vector<vector<ll>> obcnt(n, vector<ll>(26, 0));
-        for (ll i = 1; i < n;i++){
-            
+        vector<vector<ll>> oacnt(n, vector<ll>(26, 0));
+        for (ll i = 0; i < n;i++){
+            if(i%2==0){
+                ebcnt[i][s[i] - 'a']++;
+                if(i){
+                for (ll j=0; j < 26;j++){
+                    ebcnt[i][j] += ebcnt[i - 1][j];
+                    obcnt[i][j] += obcnt[i - 1][j];
+                }
+                }
+            }
+            else{
+                obcnt[i][s[i] - 'a']++;
+                for (ll j = 0; j < 26;j++){
+                    obcnt[i][j] += obcnt[i - 1][j];
+                    ebcnt[i][j] += ebcnt[i - 1][j];
+                }
+            }
         }
+        for (ll i = n - 1; i >= 0;i--){
+            if(i%2==0){
+                eacnt[i][s[i] - 'a']++;
+                if(i!=n-1){
+                    for (ll j = 0; j < 26;j++){
+                        eacnt[i][j] += eacnt[i + 1][j];
+                        oacnt[i][j] += oacnt[i + 1][j];
+                    }
+                }
+            }
+            else{
+                oacnt[i][s[i] - 'a']++;
+                if(i!=n-1){
+                    for (ll j = 0; j < 26;j++){
+                        oacnt[i][j] += oacnt[i + 1][j];
+                        eacnt[i][j] += eacnt[i + 1][j];
+                    }
+                }
+            }
+        }
+        ll ans = INT_MAX;
+        for (ll i = 0; i < n;i++){
+            ll omx = 0;
+            ll emx = 0;
+            for (ll j = 0; j < 26;j++){
+                emx = max(emx,(i - 1 >= 0 ? ebcnt[i - 1][j] : 0) + (i < n - 1 ? oacnt[i + 1][j] : 0));
+                omx = max(omx,(i - 1 >= 0 ? obcnt[i - 1][j] : 0) + (i < n - 1 ? eacnt[i + 1][j] : 0));
+            }
+                ans = min(ans, n - omx - emx);
+        }
+        cout << ans << "\n";
     }
 }
 int main(){

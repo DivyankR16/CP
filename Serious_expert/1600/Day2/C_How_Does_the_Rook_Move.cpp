@@ -30,8 +30,11 @@ void solve(){
                 }
 
             }
+        
     }
-    
+
+
+
 
 }
 int main(){
